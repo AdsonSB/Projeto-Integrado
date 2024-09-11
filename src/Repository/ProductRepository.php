@@ -74,7 +74,7 @@ class ProductRepository
             ->query('SELECT * FROM products')
             ->fetchAll(PDO::FETCH_ASSOC);
 
-        // Se hydrateProduct é um método da classe, use-o como callback
+        // Se hydrateProduct é um metodo da classe, usado como um callback
         return array_map([$this, 'hydrateProduct'], $productList);
     }
     public function hydrateProduct(Product $product): Product

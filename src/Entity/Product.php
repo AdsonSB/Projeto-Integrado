@@ -2,7 +2,7 @@
 
 namespace Senac\Mvc\Entity;
 
-class product
+class Product
 {
     public readonly int $id;
     public readonly string $description;

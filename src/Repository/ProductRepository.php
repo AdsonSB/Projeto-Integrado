@@ -27,28 +27,13 @@ class ProductRepository
         $product->setId($id);
         return $result;
     }
-
-    public function list(): array
+    /**
+     * @return Product[]
+     */
+    public function all(): array
     {
-        $sql = 'SELECT * FROM products';
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-
-        // Obtendo todos os Resultados.
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Convertendo os resultados para instâncias da classe Product.
-        $products = [];
-        foreach ($result as $row) {
-            $product[] = new Product();
-            $product->setId($row['product_id']);
-            $product->description = $row['description'];
-            $product->name = $row['name'];
-            $product->price = $row['price'];
-            $product->quantity = $row['quantity'];
-            $products[] = $product;
-        }
-        return $products;
+        $productList = $this->pdo->query("SELECT * FROM products")->fetchAll(\PDO::FETCH_ASSOC);
+        return array_map($this->hydrateProduct(...), $productList);
     }
     public function update(Product $product) : bool
     {
@@ -64,18 +49,15 @@ class ProductRepository
         return $result;
     }
 
-    /**
-     * @return Product[]
-     */
-
-    public function all(): array
+    public function find(int $id)
     {
-        $productList = $this->pdo
-            ->query('SELECT * FROM products')
-            ->fetchAll(PDO::FETCH_ASSOC);
+        // Preparar a consulta SQL pra buscar um produto pelo ID
+        $sql = 'SELECT * FROM products WHERE id = ?';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-        // Se hydrateProduct é um metodo da classe, usado como um callback
-        return array_map([$this, 'hydrateProduct'], $productList);
+        return $this->hydrateProduct($stmt->fetch(\PDO::FETCH_ASSOC));
     }
     public function hydrateProduct(Product $product): Product
     {
@@ -89,7 +71,14 @@ class ProductRepository
         return $product;
     }
 
+    public function remove(int $id) : bool
+    {
+        $sql = 'DELETE FROM products WHERE product_id = ?';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id, PDO::PARAM_INT);
 
+        return $stmt->execute();
+    }
 
 
 

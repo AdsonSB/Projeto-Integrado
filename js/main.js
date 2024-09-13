@@ -71,17 +71,17 @@
         data: {
             labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
             datasets: [{
-                    label: "USA",
+                    label: "SP",
                     data: [15, 30, 55, 65, 60, 80, 95],
                     backgroundColor: "rgba(235, 22, 22, .7)"
                 },
                 {
-                    label: "UK",
+                    label: "SC",
                     data: [8, 35, 40, 60, 70, 55, 75],
                     backgroundColor: "rgba(235, 22, 22, .5)"
                 },
                 {
-                    label: "AU",
+                    label: "CWB",
                     data: [12, 25, 45, 55, 65, 70, 60],
                     backgroundColor: "rgba(235, 22, 22, .3)"
                 }
@@ -100,13 +100,13 @@
         data: {
             labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
             datasets: [{
-                    label: "Salse",
+                    label: "Vendas",
                     data: [15, 30, 55, 45, 70, 65, 85],
                     backgroundColor: "rgba(235, 22, 22, .7)",
                     fill: true
                 },
                 {
-                    label: "Revenue",
+                    label: "Pré-Vendas",
                     data: [99, 135, 170, 130, 190, 180, 270],
                     backgroundColor: "rgba(235, 22, 22, .5)",
                     fill: true
